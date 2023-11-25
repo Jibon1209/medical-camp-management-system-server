@@ -19,7 +19,6 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    default: "participant",
   },
   timestamp: {
     type: Date,

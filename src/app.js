@@ -8,11 +8,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 const authRoutes = require("./routes/v1/authentication");
 const usersRoutes = require("./routes/v1/users");
+const campsRoutes = require("./routes/v1/camps");
 
 applyMiddleware(app);
 
 app.use(authRoutes);
 app.use(usersRoutes);
+app.use(campsRoutes);
 
 app.get("/health", (req, res) => {
   res.send("medical camp management system server is running....");

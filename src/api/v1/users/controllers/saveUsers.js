@@ -5,6 +5,15 @@ const saveUsers = {
     const result = await Users.find();
     res.send(result);
   },
+  async getRole(req, res) {
+    const requestedEmail = req.params.email;
+    if (requestedEmail !== req.decoded.email) {
+      return res.status(403).send({ message: "Forbidden access" });
+    }
+    const query = { email: requestedEmail };
+    const user = await Users.findOne(query);
+    res.send({ role: user.role });
+  },
   async create(req, res) {
     try {
       const user = req.body;
