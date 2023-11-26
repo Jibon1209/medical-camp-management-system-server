@@ -47,6 +47,10 @@ const CampsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Users",
   },
+  participantCount: {
+    type: Number,
+    default: 0,
+  },
   timestamp: {
     type: Date,
     default: Date.now,
