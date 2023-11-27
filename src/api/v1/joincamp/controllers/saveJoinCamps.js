@@ -5,6 +5,19 @@ const Camps = require("../../../../models/Camps");
 const Joincamp = require("../../../../models/joincamp");
 
 const saveJoinCamp = {
+  async getAllRegisteredCamp(req, res) {
+    const result = await Joincamp.find().populate("camp");
+    res.send({ success: true, data: result });
+  },
+  async getParticipantRegisterEmailWise(req, res) {
+    const email = req.params.email;
+    const participantId = await findParticipantIdByEmail(email);
+    const result = await Joincamp.find({ participant: participantId })
+      .populate("participant", "email")
+      .populate("camp")
+      .exec();
+    res.send({ success: true, data: result });
+  },
   async saveRegistrationAndUpdateCamp(req, res) {
     try {
       const {
@@ -43,6 +56,14 @@ const saveJoinCamp = {
       console.error(error);
       res.status(500).send({ error: "Internal Server Error" });
     }
+  },
+  async changeStatusIdWise(req, res) {
+    const id = req.params.id;
+    const result = await Joincamp.updateOne(
+      { _id: id },
+      { $set: { confirmationstatus: "Confirmed" } }
+    );
+    res.send({ success: true, data: result });
   },
 };
 module.exports = saveJoinCamp;

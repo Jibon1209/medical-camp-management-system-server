@@ -33,13 +33,21 @@ const JoincampSchema = new Schema({
     type: String,
     required: true,
   },
+  paymentstatus: {
+    type: String,
+    default: "Unpaid",
+  },
+  confirmationstatus: {
+    type: String,
+    default: "Pending",
+  },
   participant: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Users",
   },
   camp: {
     type: Schema.Types.ObjectId,
-    ref: "Camp",
+    ref: "Camps",
     required: true,
   },
   timestamp: {
