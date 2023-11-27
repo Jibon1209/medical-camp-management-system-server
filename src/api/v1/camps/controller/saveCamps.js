@@ -5,10 +5,19 @@ const {
 const Camps = require("../../../../models/Camps");
 
 const saveCamps = {
-  async getPopularCamps(req, res) {
-    const result = await Camps.find().sort({ $natural: -1 }).limit(8).exec();
+  async getCamps(req, res) {
+    const page = parseInt(req.query.page);
+    const size = parseInt(req.query.size);
+    const result = await Camps.find()
+      .skip(page * size)
+      .limit(size)
+      .exec();
 
     res.send({ success: true, data: result });
+  },
+  async getCampsCount(req, res) {
+    const count = await Camps.estimatedDocumentCount();
+    res.send({ success: true, data: count });
   },
   async getCampUserWise(req, res) {
     const user = req.params.email;

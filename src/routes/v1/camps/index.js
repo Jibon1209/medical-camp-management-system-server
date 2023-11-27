@@ -3,7 +3,8 @@ const verifyOrganizer = require("../../../middlewares/verifyOrganizer");
 const verifyToken = require("../../../middlewares/verifyToken");
 
 const router = require("express").Router();
-router.get("/popular/camps", saveCamps.getPopularCamps);
+router.get("/camps", saveCamps.getCamps);
+router.get("/campCount", saveCamps.getCampsCount);
 router.get(
   "/all/camps/:email",
   verifyToken,
