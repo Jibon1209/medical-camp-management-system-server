@@ -5,6 +5,18 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  age: {
+    type: Number,
+  },
+  gender: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
   image: {
     type: String,
     required: true,

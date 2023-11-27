@@ -5,6 +5,15 @@ const saveUsers = {
     const result = await Users.find();
     res.send(result);
   },
+  async getUsersByEmail(req, res) {
+    const requestedEmail = req.params.email;
+    if (requestedEmail !== req.decoded.email) {
+      return res.status(403).send({ message: "Forbidden access" });
+    }
+    const query = { email: requestedEmail };
+    const user = await Users.findOne(query);
+    res.send({ data: user });
+  },
   async getRole(req, res) {
     const requestedEmail = req.params.email;
     if (requestedEmail !== req.decoded.email) {
@@ -24,7 +33,19 @@ const saveUsers = {
       res.status(500).send({ error: "Internal Server Error" });
     }
   },
-
+  async updateProfile(req, res) {
+    const email = req.params.email;
+    const user = req.body;
+    if (email !== req.decoded.email) {
+      return res.status(403).send({ message: "Forbidden access" });
+    }
+    const result = await Users.updateOne(
+      { email },
+      { $set: { ...user, timestamp: Date.now() } },
+      { upsert: true }
+    );
+    res.send({ success: true, data: result });
+  },
   async update(req, res) {
     try {
       const email = req.params.email;
@@ -44,7 +65,7 @@ const saveUsers = {
         { upsert: true }
       );
 
-      res.send(result);
+      res.send({ success: true, data: result });
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "Internal Server Error" });
