@@ -2,6 +2,8 @@ const saveUpCommingCamp = require("../../../api/v1/UpCommingCamp/Controller/save
 const verifyOrganizer = require("../../../middlewares/verifyOrganizer");
 const verifyToken = require("../../../middlewares/verifyToken");
 const router = require("express").Router();
+
+router.get("/upcommingcamps", saveUpCommingCamp.getUpcomingCamps);
 router.post(
   "/upcommingcamps",
   verifyToken,

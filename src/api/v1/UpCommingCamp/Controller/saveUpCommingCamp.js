@@ -4,6 +4,11 @@ const {
   findOrganizerIdByEmail,
 } = require("../../../../lib/findOrganizerIdByEmail");
 const saveUpCommingCamp = {
+  async getUpcomingCamps(req, res) {
+    const result = await UpCommingCamp.find().exec();
+
+    res.send({ success: true, data: result });
+  },
   async create(req, res) {
     try {
       const {
