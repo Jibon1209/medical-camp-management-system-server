@@ -15,6 +15,11 @@ router.get(
   verifyToken,
   saveJoinCamp.getParticipantRegisterEmailWise
 );
+router.get(
+  "/participant/paid/register/:email",
+  verifyToken,
+  saveJoinCamp.getParticipantPaidRegister
+);
 router.patch(
   "/changeStatus/register/:id",
   verifyToken,

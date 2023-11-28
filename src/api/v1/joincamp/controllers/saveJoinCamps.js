@@ -26,6 +26,18 @@ const saveJoinCamp = {
       .exec();
     res.send({ success: true, data: result });
   },
+  async getParticipantPaidRegister(req, res) {
+    const email = req.params.email;
+    const participantId = await findParticipantIdByEmail(email);
+    const result = await Joincamp.find({
+      participant: participantId,
+      paymentstatus: "Paid",
+    })
+      .populate("participant", "email")
+      .populate("camp")
+      .exec();
+    res.send({ success: true, data: result });
+  },
   async saveRegistrationAndUpdateCamp(req, res) {
     try {
       const {
