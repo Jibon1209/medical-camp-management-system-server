@@ -19,7 +19,7 @@ const PaymentSchema = new Schema({
   },
   registerdcampId: {
     type: Schema.Types.ObjectId,
-    ref: "Joincamps",
+    ref: "Joincamp",
     required: true,
   },
   camp: {

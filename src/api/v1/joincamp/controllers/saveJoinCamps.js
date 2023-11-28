@@ -73,5 +73,11 @@ const saveJoinCamp = {
     );
     res.send({ success: true, data: result });
   },
+  async deleteRegistration(req, res) {
+    const id = req.params.id;
+    console.log(id);
+    const result = await Joincamp.deleteOne({ _id: id });
+    res.send({ success: true, data: result });
+  },
 };
 module.exports = saveJoinCamp;

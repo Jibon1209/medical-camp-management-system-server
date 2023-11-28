@@ -17,6 +17,14 @@ const savePayment = {
       clientSecret: paymentIntent.client_secret,
     });
   },
+  async getPaymentHistoryUserWise(req, res) {
+    const email = req.params.email;
+    const result = await Payment.find({ email: email })
+      .populate("camp")
+      .populate("registerdcampId")
+      .exec();
+    res.send({ success: true, data: result });
+  },
   async paymentCreate(req, res) {
     try {
       const { email, price, transactionId, date, registerdcampId, camp } =
