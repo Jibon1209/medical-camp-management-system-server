@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const {
   findParticipantIdByEmail,
 } = require("../../../../lib/findparticipantIdByEmail");
@@ -8,6 +9,13 @@ const saveJoinCamp = {
   async getAllRegisteredCamp(req, res) {
     const result = await Joincamp.find().populate("camp");
     res.send({ success: true, data: result });
+  },
+  async getFeesIdWise(req, res) {
+    const id = req.params.id;
+    const result = await Joincamp.findOne({
+      _id: new mongoose.Types.ObjectId(id),
+    }).exec();
+    res.send(result);
   },
   async getParticipantRegisterEmailWise(req, res) {
     const email = req.params.email;

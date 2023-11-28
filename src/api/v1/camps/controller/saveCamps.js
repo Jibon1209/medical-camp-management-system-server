@@ -9,6 +9,10 @@ const saveCamps = {
     const page = parseInt(req.query.page);
     const size = parseInt(req.query.size);
     const result = await Camps.find()
+      .populate({
+        path: "professional",
+        select: "name",
+      })
       .skip(page * size)
       .limit(size)
       .exec();
@@ -31,7 +35,12 @@ const saveCamps = {
     const id = req.params.id;
     const result = await Camps.findOne({
       _id: new mongoose.Types.ObjectId(id),
-    });
+    })
+      .populate({
+        path: "professional",
+        select: "name",
+      })
+      .exec();
     res.send(result);
   },
   async create(req, res) {

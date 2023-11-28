@@ -12,9 +12,8 @@ const CampsSchema = new Schema({
     trim: true,
   },
   professional: {
-    type: String,
-    required: true,
-    trim: true,
+    type: Schema.Types.ObjectId,
+    ref: "Users",
   },
   fees: {
     type: Number,

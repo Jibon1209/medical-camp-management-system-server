@@ -6,6 +6,12 @@ const router = require("express").Router();
 router.get("/users", verifyToken, verifyOrganizer, saveUsers.getAllUsers);
 router.get("/userProfile/users/:email", verifyToken, saveUsers.getUsersByEmail);
 router.get("/users/role/:email", verifyToken, saveUsers.getRole);
+router.get(
+  "/professional/users",
+  verifyToken,
+  verifyOrganizer,
+  saveUsers.getAllProfessionalUser
+);
 router.post("/users", saveUsers.create);
 router.put("/update/users/:email", verifyToken, saveUsers.updateProfile);
 router.put("/users/:email", saveUsers.update);

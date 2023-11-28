@@ -9,6 +9,18 @@ const saveUpCommingCamp = {
 
     res.send({ success: true, data: result });
   },
+  async getCampIdWise(req, res) {
+    const id = req.params.id;
+    const result = await Camps.findOne({
+      _id: new mongoose.Types.ObjectId(id),
+    })
+      .populate({
+        path: "professional",
+        select: "name",
+      })
+      .exec();
+    res.send(result);
+  },
   async create(req, res) {
     try {
       const {

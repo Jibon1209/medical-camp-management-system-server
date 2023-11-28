@@ -5,6 +5,10 @@ const saveUsers = {
     const result = await Users.find();
     res.send(result);
   },
+  async getAllProfessionalUser(req, res) {
+    const result = await Users.find({ role: "professional" });
+    res.send({ success: true, data: result });
+  },
   async getUsersByEmail(req, res) {
     const requestedEmail = req.params.email;
     if (requestedEmail !== req.decoded.email) {

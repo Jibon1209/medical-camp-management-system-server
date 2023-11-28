@@ -9,6 +9,7 @@ router.get(
   verifyOrganizer,
   saveJoinCamp.getAllRegisteredCamp
 );
+router.get("/fees/register/:id", saveJoinCamp.getFeesIdWise);
 router.get(
   "/participant/register/:email",
   verifyToken,
