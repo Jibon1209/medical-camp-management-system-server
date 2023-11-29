@@ -8,6 +8,14 @@ const FeedbackSchema = new Schema({
     type: String,
     required: true,
   },
+  campName: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
   comment: {
     type: String,
     required: true,

@@ -1,6 +1,10 @@
 const feedback = require("../../../../models/feedback");
 
 const saveFeedback = {
+  async getAllFeedback(req, res) {
+    const result = await feedback.find();
+    res.send({ success: true, data: result });
+  },
   async create(req, res) {
     try {
       const feedbackInfo = req.body;

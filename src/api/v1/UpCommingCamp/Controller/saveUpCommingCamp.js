@@ -11,13 +11,10 @@ const saveUpCommingCamp = {
   },
   async getCampIdWise(req, res) {
     const id = req.params.id;
-    const result = await Camps.findOne({
+    const result = await UpCommingCamp.findOne({
       _id: new mongoose.Types.ObjectId(id),
     })
-      .populate({
-        path: "professional",
-        select: "name",
-      })
+      .populate("organizer")
       .exec();
     res.send(result);
   },
