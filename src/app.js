@@ -13,6 +13,8 @@ const upCommingCampRoutes = require("./routes/v1/UpCommingCamp");
 const registerRoutes = require("./routes/v1/Joincamp");
 const paymentRoutes = require("./routes/v1/payment");
 const feedbackRoutes = require("./routes/v1/feedback");
+const upcomingParticipantsRoutes = require("./routes/v1/upcomingParticipants");
+const upcomingProfessionalRoutes = require("./routes/v1/UpcomingProfessional");
 
 applyMiddleware(app);
 
@@ -23,6 +25,8 @@ app.use(upCommingCampRoutes);
 app.use(registerRoutes);
 app.use(paymentRoutes);
 app.use(feedbackRoutes);
+app.use(upcomingParticipantsRoutes);
+app.use(upcomingProfessionalRoutes);
 
 app.get("/health", (req, res) => {
   res.send("medical camp management system server is running....");

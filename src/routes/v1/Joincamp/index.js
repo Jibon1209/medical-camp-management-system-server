@@ -26,6 +26,10 @@ router.patch(
   verifyOrganizer,
   saveJoinCamp.changeStatusIdWise
 );
-router.post("/register", saveJoinCamp.saveRegistrationAndUpdateCamp);
+router.post(
+  "/register",
+  verifyToken,
+  saveJoinCamp.saveRegistrationAndUpdateCamp
+);
 router.delete("/register/:id", verifyToken, saveJoinCamp.deleteRegistration);
 module.exports = router;
