@@ -29,6 +29,10 @@ const upcomingProfessionalSchema = new Schema({
     ref: "UpCommingCamp",
     required: true,
   },
+  acceptancestatus: {
+    type: String,
+    default: "Pending",
+  },
   timestamp: {
     type: Date,
     default: Date.now,

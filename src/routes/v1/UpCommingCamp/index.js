@@ -17,4 +17,16 @@ router.post(
   verifyOrganizer,
   saveUpCommingCamp.create
 );
+router.patch(
+  "/upcommingcamps/:id",
+  verifyToken,
+  verifyOrganizer,
+  saveUpCommingCamp.updateupcomingCampsIdWise
+);
+router.delete(
+  "/upcommingcamps/:id",
+  verifyToken,
+  verifyOrganizer,
+  saveUpCommingCamp.campDeleteIdWise
+);
 module.exports = router;

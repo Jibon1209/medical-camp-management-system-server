@@ -58,5 +58,43 @@ const saveUpCommingCamp = {
       res.status(500).send({ error: "Internal Server Error" });
     }
   },
+  async updateupcomingCampsIdWise(req, res) {
+    const {
+      campName,
+      location,
+      fees,
+      dateTime,
+      image,
+      services,
+      audience,
+      description,
+      organizerEmail,
+    } = req.body;
+    const organizerId = await findOrganizerIdByEmail(organizerEmail);
+    const id = req.params.id;
+    const filter = { _id: new mongoose.Types.ObjectId(id) };
+    const updatedDoc = {
+      $set: {
+        campName,
+        location,
+        fees,
+        dateTime,
+        image,
+        services,
+        audience,
+        description,
+        organizer: organizerId,
+      },
+    };
+
+    const result = await UpCommingCamp.updateOne(filter, updatedDoc);
+    res.send({ success: true, data: result });
+  },
+  async campDeleteIdWise(req, res) {
+    const id = req.params.id;
+    const query = { _id: new mongoose.Types.ObjectId(id) };
+    const result = await UpCommingCamp.deleteOne(query);
+    res.send({ success: true, data: result });
+  },
 };
 module.exports = saveUpCommingCamp;
