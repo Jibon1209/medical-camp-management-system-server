@@ -5,6 +5,12 @@ const router = require("express").Router();
 
 router.get("/upcommingcamps", saveUpCommingCamp.getUpcomingCamps);
 router.get("/upcommingcamps/:id", saveUpCommingCamp.getCampIdWise);
+router.get(
+  "/all/upcommingcamps/:email",
+  verifyToken,
+  verifyOrganizer,
+  saveUpCommingCamp.getAllUpcominsCampUserWise
+);
 router.post(
   "/upcommingcamps",
   verifyToken,

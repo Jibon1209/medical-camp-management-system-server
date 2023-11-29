@@ -18,6 +18,14 @@ const saveUpCommingCamp = {
       .exec();
     res.send(result);
   },
+  async getAllUpcominsCampUserWise(req, res) {
+    const user = req.params.email;
+    const organizerId = await findOrganizerIdByEmail(user);
+    const result = await UpCommingCamp.find({ organizer: organizerId })
+      .populate("organizer", "email")
+      .exec();
+    res.send({ success: true, data: result });
+  },
   async create(req, res) {
     try {
       const {
