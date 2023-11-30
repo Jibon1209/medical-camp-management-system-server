@@ -15,5 +15,11 @@ router.get(
 router.post("/users", saveUsers.create);
 router.put("/update/users/:email", verifyToken, saveUsers.updateProfile);
 router.put("/users/:email", saveUsers.update);
+router.get(
+  "/admin-stats",
+  verifyToken,
+  verifyOrganizer,
+  saveUsers.getAdminStats
+);
 
 module.exports = router;

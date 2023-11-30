@@ -6,6 +6,21 @@ const UpCommingCamp = require("../../../../models/UpCommingCamp");
 const upcomingProfessional = require("../../../../models/upcomingProfessional");
 
 const saveupcomingProfessional = {
+  async getProfessional(req, res) {
+    try {
+      const result = await upcomingProfessional
+        .find({
+          acceptancestatus: "Accepted",
+        })
+        .populate("upcomingcamp")
+        .exec();
+
+      res.send({ success: true, data: result });
+    } catch (error) {
+      console.error("Error fetching accepted professionals:", error);
+      res.status(500).send({ error: "Internal Server Error" });
+    }
+  },
   async getProfessionalIdWise(req, res) {
     const id = req.params.id;
     const result = await upcomingProfessional

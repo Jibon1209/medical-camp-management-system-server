@@ -1,4 +1,7 @@
+const Camps = require("../../../../models/Camps");
+const Payment = require("../../../../models/Payment");
 const Users = require("../../../../models/Users");
+const Feedback = require("../../../../models/feedback");
 
 const saveUsers = {
   async getAllUsers(req, res) {
@@ -72,6 +75,36 @@ const saveUsers = {
       res.send({ success: true, data: result });
     } catch (error) {
       console.error(error);
+      res.status(500).send({ error: "Internal Server Error" });
+    }
+  },
+  async getAdminStats(req, res) {
+    try {
+      const users = await Users.estimatedDocumentCount();
+      const feedback = await Feedback.estimatedDocumentCount();
+      const camps = await Camps.estimatedDocumentCount();
+
+      const result = await Payment.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue: {
+              $sum: "$price",
+            },
+          },
+        },
+      ]);
+
+      const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+
+      res.send({
+        users,
+        feedback,
+        camps,
+        revenue,
+      });
+    } catch (error) {
+      console.error("Error in getAdminStats:", error);
       res.status(500).send({ error: "Internal Server Error" });
     }
   },

@@ -4,6 +4,11 @@ const verifyToken = require("../../../middlewares/verifyToken");
 
 const router = require("express").Router();
 router.get(
+  "/upcomingProfessional",
+  verifyToken,
+  saveupcomingProfessional.getProfessional
+);
+router.get(
   "/upcomingProfessional/:id",
   saveupcomingProfessional.getProfessionalIdWise
 );
