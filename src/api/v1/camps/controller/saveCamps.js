@@ -3,6 +3,13 @@ const {
   findOrganizerIdByEmail,
 } = require("../../../../lib/findOrganizerIdByEmail");
 const Camps = require("../../../../models/Camps");
+const {
+  findProfessionalIdById,
+} = require("../../../../lib/findProfessionalIdById");
+const UpCommingCamp = require("../../../../models/UpCommingCamp");
+const { findUserByEmail } = require("../../../../lib/findUserByEmail");
+const upcomingParticipants = require("../../../../models/upcomingParticipants");
+const upcomingProfessional = require("../../../../models/upcomingProfessional");
 
 const saveCamps = {
   async getCamps(req, res) {
@@ -116,6 +123,51 @@ const saveCamps = {
     const query = { _id: new mongoose.Types.ObjectId(id) };
     const result = await Camps.deleteOne(query);
     res.send({ success: true, data: result });
+  },
+  async getCampFromUpcomingCamp(req, res) {
+    const {
+      _id,
+      campName,
+      location,
+      fees,
+      dateTime,
+      image,
+      services,
+      audience,
+      description,
+      organizer,
+      participantCount,
+      professional,
+    } = req.body;
+    const professionalEmail = await findProfessionalIdById(_id);
+    const professionalId = await findUserByEmail(professionalEmail);
+    console.log(professionalEmail, professionalId);
+    const newCamp = await Camps.create({
+      _id,
+      campName,
+      location,
+      fees,
+      dateTime,
+      image,
+      services,
+      audience,
+      description,
+      organizer,
+      participantCount,
+      professional: professionalId,
+    });
+
+    await UpCommingCamp.deleteOne({
+      _id: new mongoose.Types.ObjectId(_id),
+    });
+    await upcomingParticipants.delete({
+      upcomingcamp: new mongoose.Types.ObjectId(_id),
+    });
+    await upcomingProfessional.delete({
+      upcomingcamp: new mongoose.Types.ObjectId(_id),
+    });
+
+    res.send({ success: true, data: newCamp });
   },
 };
 module.exports = saveCamps;

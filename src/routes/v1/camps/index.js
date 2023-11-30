@@ -13,6 +13,14 @@ router.get(
 );
 router.get("/camps/:id", saveCamps.getCampIdWise);
 router.post("/camps", verifyToken, verifyOrganizer, saveCamps.create);
+
+router.post(
+  "/upcomingcamp/camps/:id",
+  verifyToken,
+  verifyOrganizer,
+  saveCamps.getCampFromUpcomingCamp
+);
+
 router.patch(
   "/camps/:id",
   verifyToken,

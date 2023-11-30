@@ -26,7 +26,6 @@ const saveupcomingProfessional = {
         professionalEmail,
         upcomingcampId,
       } = req.body;
-      const participantId = await findProfessionalIdByEmail(professionalEmail);
 
       const participantInfo = await upcomingProfessional.create({
         name,
@@ -34,7 +33,7 @@ const saveupcomingProfessional = {
         phone,
         address,
         areasOfInterest,
-        participant: participantId,
+        professionalEmail,
         upcomingcamp: upcomingcampId,
       });
       await UpCommingCamp.findOneAndUpdate(

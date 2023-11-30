@@ -3,6 +3,8 @@ const UpCommingCamp = require("../../../../models/UpCommingCamp");
 const {
   findOrganizerIdByEmail,
 } = require("../../../../lib/findOrganizerIdByEmail");
+const upcomingParticipants = require("../../../../models/upcomingParticipants");
+const upcomingProfessional = require("../../../../models/upcomingProfessional");
 const saveUpCommingCamp = {
   async getUpcomingCamps(req, res) {
     const result = await UpCommingCamp.find().exec();
@@ -94,6 +96,12 @@ const saveUpCommingCamp = {
     const id = req.params.id;
     const query = { _id: new mongoose.Types.ObjectId(id) };
     const result = await UpCommingCamp.deleteOne(query);
+    await upcomingParticipants.delete({
+      upcomingcamp: new mongoose.Types.ObjectId(id),
+    });
+    await upcomingProfessional.delete({
+      upcomingcamp: new mongoose.Types.ObjectId(id),
+    });
     res.send({ success: true, data: result });
   },
 };

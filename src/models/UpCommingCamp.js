@@ -16,7 +16,6 @@ const UpCommingCampSchema = new Schema({
   },
   dateTime: {
     type: Date,
-    required: true,
   },
   location: {
     type: String,

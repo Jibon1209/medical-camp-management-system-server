@@ -83,7 +83,7 @@ const saveupcomingParticipants = {
       ) {
         return res.status(400).send({ error: "Missing required fields" });
       }
-      // Create a new Joincamp document
+
       const joincamp = await Joincamp.create({
         name,
         age,
@@ -97,12 +97,10 @@ const saveupcomingParticipants = {
         camp,
       });
 
-      // Delete the UpcomingParticipant document
       await upcomingParticipants.deleteOne({
         _id: new mongoose.Types.ObjectId(id),
       });
 
-      // Send the response
       res.send({ success: true, data: joincamp });
     } catch (error) {
       console.error(error);

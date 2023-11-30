@@ -20,9 +20,9 @@ const upcomingProfessionalSchema = new Schema({
     type: String,
     required: true,
   },
-  professional: {
-    type: Schema.Types.ObjectId,
-    ref: "Users",
+  professionalEmail: {
+    type: String,
+    required: true,
   },
   upcomingcamp: {
     type: Schema.Types.ObjectId,
